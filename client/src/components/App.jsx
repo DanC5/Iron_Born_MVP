@@ -45,7 +45,7 @@ const Header = styled.div`
   font-family: 'Bree Serif', serif;
   font-size: 1.5em;
   box-shadow: 0 12px 24px rgba(0,0,0,0.22), 0 10px 10px rgba(0,0,0,0.20);
-  z-index: 2;
+  z-index: 10;
 `;
 
 const Title1 = styled.h1`

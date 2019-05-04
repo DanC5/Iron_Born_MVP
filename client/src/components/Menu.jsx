@@ -67,5 +67,6 @@ const Card = styled.div`
     font-family: 'Bree Serif', serif;
     font-size: 1.5em;
     cursor: pointer;
+    background-color: #111;
   }
 `;
