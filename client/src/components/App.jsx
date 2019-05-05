@@ -15,7 +15,7 @@ export default class App extends Component {
         <div id='main'>
           <Header>
             <Link to='/' style={{ textDecoration: 'none' }}>
-              <Title1>Iron Born</Title1>
+              <Title1>IronBorn</Title1>
             </Link>
           </Header>
           <Background>
@@ -43,7 +43,7 @@ const Header = styled.div`
   align-items: center;
   background-color: #222;
   font-family: 'Bree Serif', serif;
-  font-size: 1.5em;
+  font-size: 1.7em;
   box-shadow: 0 12px 24px rgba(0,0,0,0.22), 0 10px 10px rgba(0,0,0,0.20);
   z-index: 10;
 `;
@@ -51,6 +51,7 @@ const Header = styled.div`
 const Title1 = styled.h1`
   cursor: pointer;
   color: #82d8d8;
+  padding-bottom: 10px;
 `;
 
 const Background = styled.div`

@@ -57,15 +57,15 @@ const Card = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.3em;
-  font-family: 'Helvetica Neue';
+  font-size: 1.5em;
+  font-family: 'Bree Serif', serif;
   box-shadow: 0 10px 20px rgba(0,0,0,0.20), 0 10px 10px rgba(0,0,0,0.18);
   transition: all 0.3s ease;
   &:hover {
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
     color: #82d8d8;
     font-family: 'Bree Serif', serif;
-    font-size: 1.5em;
+    font-size: 1.7em;
     cursor: pointer;
     background-color: #111;
   }

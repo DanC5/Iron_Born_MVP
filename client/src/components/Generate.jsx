@@ -6,11 +6,19 @@ export default class Generate extends Component {
   constructor() {
     super();
     this.state = {
-      duration: '',
-      focus: '',
+      duration: '30',
+      focus: 'Upper-body push',
       modal: false,
     }
     this.toggleModal = this.toggleModal.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e) {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value,
+    })
   }
 
   toggleModal() {
@@ -21,19 +29,19 @@ export default class Generate extends Component {
 
   render() {
     const { duration, focus, modal } = this.state;
-    const { toggleModal } = this;
+    const { toggleModal, handleChange } = this;
 
     return (
       <Container>
         <h1 style={{color: '#82d8d8'}}>Create a Workout...</h1>
         <h2>How much time do you have?</h2>
-        <Select name='duration' id='duration'>
+        <Select name='duration' id='duration' onChange={handleChange}>
           <option value='30'>30 minutes</option>
           <option value='45'>45 minutes</option>
           <option value='60'>1 hour</option>
         </Select>
-        <h2>How do you want to focus your workout?</h2>
-        <Select name='focus' id='focus'>
+        <h2>What do you want to focus on?</h2>
+        <Select name='focus' id='focus' onChange={handleChange}>
           <option value='Upper-body push'>Upper-body push</option>
           <option value='Upper-body pull'>Upper-body pull</option>
           <option value='Core'>Core</option>

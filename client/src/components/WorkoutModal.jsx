@@ -1,22 +1,59 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import Portal from '../utilities/Portal.jsx';
+import { workoutGenerator } from '../utilities/exercises.js';
 
 export default class WorkoutModal extends Component {
+  constructor() {
+    super();
+    this.state = {
+      workout: {},
+    }
+    this.saveWorkout = this.saveWorkout.bind(this);
+  }
+
+  saveWorkout() {
+    console.log('saved')
+    this.props.toggleModal();
+  }
+
   render() {
-    const { toggleModal } = this.props;
+    const { duration, focus, toggleModal } = this.props;
+    const { saveWorkout } = this;
+    const workout = workoutGenerator(duration, focus);
+    const cardio = workout[0];
+    let counter = -1;
 
     return (
       <Portal>
         <Container>
           <Close onClick={toggleModal}>X</Close>
-          <h1>I'm in a Portal Modal!</h1>
+          <h1 style={{color: '#82d8d8'}}>Your Workout, Get Some!</h1>
+          {duration === '30' && <h2>Cardio: <Link href={cardio.link} target='_blank'>{cardio.name} for 10 minutes</Link></h2>}
+          {duration === '45' && <h2>Cardio: <Link href={cardio.link} target='_blank'>{cardio.name} for 15 minutes</Link></h2>}
+          {duration === '60' && <h2>Cardio: <Link href={cardio.link} target='_blank'>{cardio.name} for 20 minutes</Link></h2>}
+          {workout.map(exercise => {
+            counter++
+            return (exercise.name !== cardio.name &&
+              <h2 key={counter}>Exercise {counter}: <Link href={exercise.link} target='_blank'>{exercise.name}</Link></h2>)
+          })}
+          <ButtonFlex>
+            <Save onClick={saveWorkout}>Save to My Workouts</Save>
+            <Refresh onClick={toggleModal}>Try Again</Refresh>
+          </ButtonFlex>
         </Container>
         <Background onClick={toggleModal} />
       </Portal>
     )
   }
 }
+
+WorkoutModal.propTypes = {
+  duration: PropTypes.string.isRequired,
+  focus: PropTypes.string.isRequired,
+  toggleModal: PropTypes.func.isRequired,
+};
 
 const Background = styled.div`
   position: absolute;
@@ -37,7 +74,7 @@ const Container = styled.div`
   top: 120px;
   left: 0px;
   margin: 0px 20%;
-  background-color: white;
+  background-color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,13 +95,73 @@ const Close = styled.button`
   position: absolute;
   top: 0px;
   right: 0px;
-  font-size: 30px;
-  padding: 10px 20px;
+  font-size: 25px;
+  padding: 5px 12px;
+  margin: 5px;
   background-color: #fff;
   border-radius: 5px;
   border: none;
   color: #ff6961;
+  transition: all 0.3s ease;
   &:hover {
     background-color: #f4f4f4;
+    border: 1px solid #ff6961;
   }
+`;
+
+const Link = styled.a`
+  text-decoration: none;
+  color: #000;
+  transition: all 0.3s ease;
+  &:hover {
+    font-size: 1.3em;
+    border-bottom: 4px solid #82d8d8;
+  }
+`;
+const Save = styled.button`
+  background-color: #222;
+  font-family: 'Bree Serif', serif;
+  color: #82d8d8;
+  border-radius: 28px;
+	border: 2px solid #222;
+	cursor: pointer;
+	font-size: 15px;
+	padding: 10px 60px;
+  margin: 30px 0px;
+	text-decoration: none;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.22), 0 10px 10px rgba(0,0,0,0.20);
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: #111;
+    font-size: 1.3em;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  }
+`;
+
+const Refresh = styled.button`
+  background-color: #fff;
+  font-family: 'Bree Serif', serif;
+  color: #ff6961;
+  border-radius: 28px;
+	border: 2px solid #ff6961;
+	cursor: pointer;
+	font-size: 15px;
+	padding: 10px 60px;
+  margin: 30px 0px;
+	text-decoration: none;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.22), 0 10px 10px rgba(0,0,0,0.20);
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: #f4f4f4;
+    font-size: 1.3em;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  }
+`;
+
+const ButtonFlex = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 75%;
+  justify-content: space-evenly;
+  align-items: center;
 `;

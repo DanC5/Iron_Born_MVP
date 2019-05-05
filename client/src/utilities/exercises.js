@@ -54,13 +54,13 @@ const cardio = [
 const focusSelector = (focus) => {
   switch (focus) {
     case 'Upper-body push':
-      return push;
+      return push.slice();
     case 'Upper-body pull':
-      return pull;
+      return pull.slice();
     case 'Core':
-      return core;
+      return core.slice();
     case 'Legs':
-      return legs;    
+      return legs.slice();
     default: null;
   }
 }
