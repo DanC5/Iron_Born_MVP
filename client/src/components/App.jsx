@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Menu from './Menu.jsx';
 import Generate from './Generate.jsx';
-import History from './History.jsx';
+import WorkoutList from './WorkoutList.jsx';
 import Library from './Library.jsx';
 import styled from 'styled-components';
 import {
@@ -22,7 +22,7 @@ export default class App extends Component {
             <Switch>
               <Route exact path='/' component={Menu}/>
               <Route path='/create' component={Generate}/>
-              <Route path='/history' component={History}/>
+              <Route path='/history' component={WorkoutList}/>
               <Route path='/library' component={Library}/>
             </Switch>
           </Background>

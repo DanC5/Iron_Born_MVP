@@ -111,6 +111,7 @@ const Close = styled.button`
   margin: 5px;
   background-color: #fff;
   border-radius: 5px;
+  cursor: pointer;
   border: none;
   color: #ff6961;
   transition: all 0.3s ease;

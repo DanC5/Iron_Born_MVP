@@ -1,6 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
-const { getWorkouts, addWorkout } = require('./db');
+const { getWorkouts, addWorkout, deleteWorkout } = require('./db');
 const PORT = process.env.PORT || 5555;
 
 const app = express();
@@ -20,6 +20,13 @@ app.post('/workouts', (req, res) => {
   addWorkout(workout)
     .then(results => res.json(results))
     .catch('Server-side error adding workout to DB...')
+});
+
+app.delete('/workouts/:id', (req, res) => {
+  const { id } = req.params;
+  deleteWorkout(id)
+    .then(results => res.json(results))
+    .catch('Server-side error deleting workout from DB...')
 });
 
 app.listen(PORT, (err) => {
