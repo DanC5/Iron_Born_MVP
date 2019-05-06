@@ -3,19 +3,27 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Portal from '../utilities/Portal.jsx';
 import { workoutGenerator } from '../utilities/exercises.js';
+import { Link as Redirect } from 'react-router-dom';
 
 export default class WorkoutModal extends Component {
   constructor() {
     super();
-    this.state = {
-      workout: {},
-    }
     this.saveWorkout = this.saveWorkout.bind(this);
   }
 
-  saveWorkout() {
-    console.log('saved')
-    this.props.toggleModal();
+  saveWorkout(workout) {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(workout)
+    }
+
+    fetch('/workouts', options)
+      .then(response => response.json())
+      .then(() => console.log('Successfully posted to DB...'))
+      .catch(() => console.log('Error posting to DB...'))
   }
 
   render() {
@@ -39,8 +47,10 @@ export default class WorkoutModal extends Component {
               <h2 key={counter}>Exercise {counter}: <Link href={exercise.link} target='_blank'>{exercise.name}</Link></h2>)
           })}
           <ButtonFlex>
-            <Save onClick={saveWorkout}>Save to My Workouts</Save>
-            <Refresh onClick={toggleModal}>Try Again</Refresh>
+            <Redirect to='/' style={{ textDecoration: 'none' }}>
+              <Save onClick={() => saveWorkout(workout)}>Save to My Workouts</Save>
+            </Redirect>
+            <Refresh onClick={toggleModal}>Show Me a New One</Refresh>
           </ButtonFlex>
         </Container>
         <Background onClick={toggleModal} />
@@ -74,6 +84,7 @@ const Container = styled.div`
   top: 120px;
   left: 0px;
   margin: 0px 20%;
+  margin-bottom: 100px;
   background-color: #fff;
   display: flex;
   justify-content: center;
@@ -139,7 +150,7 @@ const Save = styled.button`
 `;
 
 const Refresh = styled.button`
-  background-color: #fff;
+  background-color: #f4f4f4;
   font-family: 'Bree Serif', serif;
   color: #ff6961;
   border-radius: 28px;
@@ -152,7 +163,7 @@ const Refresh = styled.button`
   box-shadow: 0 12px 24px rgba(0,0,0,0.22), 0 10px 10px rgba(0,0,0,0.20);
   transition: all 0.3s ease;
   &:hover {
-    background-color: #f4f4f4;
+    background-color: #fff;
     font-size: 1.3em;
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
   }

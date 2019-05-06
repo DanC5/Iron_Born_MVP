@@ -1,6 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
-const { db } = require('./db');
+const { getWorkouts, addWorkout } = require('./db');
 const PORT = process.env.PORT || 5555;
 
 const app = express();
@@ -9,15 +9,18 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(express.static(`${__dirname}/../client/dist`));
 
-// app.get('/items', function (req, res) {
-//   items.selectAll(function(err, data) {
-//     if(err) {
-//       res.sendStatus(500);
-//     } else {
-//       res.json(data);
-//     }
-//   });
-// });
+app.get('/workouts', (req, res) => {
+  getWorkouts()
+    .then(results => res.json(results))
+    .catch('Server-side error getting workouts from DB...')
+});
+
+app.post('/workouts', (req, res) => {
+  const workout = req.body;
+  addWorkout(workout)
+    .then(results => res.json(results))
+    .catch('Server-side error adding workout to DB...')
+});
 
 app.listen(PORT, (err) => {
   if (err) console.log('Error connecting to server...');

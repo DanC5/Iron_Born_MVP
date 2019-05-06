@@ -86,6 +86,7 @@ const Button = styled.button`
   transition: all 0.3s ease;
   &:hover {
     background-color: #111;
+    font-size: 2em;
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
   }
 `;
