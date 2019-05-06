@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import styled from 'styled-components';
 import WorkoutListItem from './WorkoutListItem.jsx';
 import Portal from '../utilities/Portal.jsx';
@@ -59,10 +59,24 @@ export default class WorkoutList extends Component {
             <Link to='/' style={{ textDecoration: 'none' }}>
               <Close onClick={toggleModal}>X</Close>
             </Link>
-            <h1 style={{color: '#82d8d8'}}>Your Workout History</h1>
-            {workouts.map(workout => {
-              return <WorkoutListItem key={workout._id} workout={workout} deleteWorkout={deleteWorkout}/>
-            })}
+            {
+              workouts.length === 0 &&
+              <Fragment>
+                <h1 style={{color: '#82d8d8', marginTop: '100px'}}>No Workouts in Your History...</h1>
+                <Link to='/create' style={{ textDecoration: 'none' }}>
+                  <Button>Create Workout</Button>
+                </Link>
+              </Fragment>
+            }
+            {
+              workouts.length !== 0 &&
+              <Fragment>
+                <h1 style={{color: '#82d8d8'}}>Your Workout History</h1>
+                {workouts.map(workout => {
+                return <WorkoutListItem key={workout._id} workout={workout} deleteWorkout={deleteWorkout}/>
+                })}
+              </Fragment>
+            }
           </Container>
         }
         <Link to='/' style={{ textDecoration: 'none' }}>
@@ -107,6 +121,26 @@ const Container = styled.div`
   transition: all 0.3s ease;
   z-index: 3;
   &:hover {
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  }
+`;
+
+const Button = styled.button`
+  background-color: #222;
+  font-family: 'Bree Serif', serif;
+  color: #82d8d8;
+  border-radius: 28px;
+	border: none;
+	cursor: pointer;
+	font-size: 25px;
+	padding: 10px 60px;
+  margin: 30px 0px;
+	text-decoration: none;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.22), 0 10px 10px rgba(0,0,0,0.20);
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: #111;
+    font-size: 2em;
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
   }
 `;
