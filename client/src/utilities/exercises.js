@@ -1,4 +1,4 @@
-const push = [
+export const push = [
   { name: 'Dumbbell chest press', link:'https://www.bodybuilding.com/exercises/dumbbell-bench-press'},
   { name: 'Incline dumbbell press', link:'https://www.bodybuilding.com/exercises/incline-dumbbell-press'},
   { name: 'Barbell bench press', link:'https://www.bodybuilding.com/exercises/barbell-bench-press-medium-grip'},
@@ -9,7 +9,7 @@ const push = [
   { name: 'Lateral shoulder raise', link:'https://www.bodybuilding.com/exercises/power-partials'},
 ];
 
-const pull = [
+export const pull = [
   { name: 'Pull-up (assisted optional)', link:'https://www.bodybuilding.com/exercises/pullups'},
   { name: 'Chin-up (assisted optional)', link:'https://www.bodybuilding.com/exercises/chin-up'},
   { name: 'Overhead lat pull-down', link:'https://www.bodybuilding.com/exercises/wide-grip-lat-pulldown'},
@@ -20,7 +20,7 @@ const pull = [
   { name: 'Alternating renegade row', link:'https://www.bodybuilding.com/exercises/alternating-renegade-row'},
 ];
 
-const core = [
+export const core = [
   { name: 'Forearm plank', link:'https://www.bodybuilding.com/exercises/plank'},
   { name: 'Side plank', link:'https://www.bodybuilding.com/exercises/side-bridge'},
   { name: 'Hanging leg raise', link:'https://www.bodybuilding.com/exercises/hanging-leg-raise'},
@@ -31,7 +31,7 @@ const core = [
   { name: 'Supine leg lift', link:'https://www.bodybuilding.com/exercises/flat-bench-lying-leg-raise'},
 ];
 
-const legs = [
+export const legs = [
   { name: 'Barbell squat', link:'https://www.bodybuilding.com/exercises/barbell-full-squat'},
   { name: 'Barbell deadlift', link:'https://www.bodybuilding.com/exercises/barbell-deadlift'},
   { name: 'Box squat', link:'https://www.bodybuilding.com/exercises/box-squat'},
@@ -42,7 +42,7 @@ const legs = [
   { name: 'Single leg press', link:'https://www.bodybuilding.com/exercises/single-leg-press'},
 ];
 
-const cardio = [
+export const cardio = [
   { name: 'Treadmill run', link:'https://www.bodybuilding.com/exercises/jogging-treadmill'},
   { name: 'Treadmill hike', link:'https://www.bodybuilding.com/exercises/walking-treadmill'},
   { name: 'Elliptical', link:'https://www.bodybuilding.com/exercises/elliptical-trainer'},

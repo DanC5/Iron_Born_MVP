@@ -5,9 +5,9 @@ export default function WorkoutListItem({ workout, deleteWorkout }) {
   return (
     <Card>
       <Close onClick={() => deleteWorkout(workout._id)}>X</Close>
-      <div style={{marginBottom: '5px'}}>Date: {workout.date}</div>
+      <Date>Date: {workout.date}</Date>
       {workout.workout.map(exercise => {
-        return <div>{exercise.name}</div>
+        return <div key={exercise.name}>{exercise.name}</div>
       })}
     </Card>
   )
@@ -51,4 +51,10 @@ const Close = styled.button`
     background-color: #f4f4f4;
     border: 1px solid #ff6961;
   }
+`;
+
+const Date = styled.div`
+  margin-bottom: 5px;
+  width: 140px;
+  border-bottom: 2px solid #82d8d8;
 `;

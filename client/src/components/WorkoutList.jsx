@@ -100,7 +100,8 @@ const Container = styled.div`
   flex-direction: column;
   font-family: 'Bree Serif', serif;
   min-width: 60%;
-  height: 80%;
+  min-height: 60%;
+  max-height: 78%;
   box-shadow: 0 12px 24px rgba(0,0,0,0.22), 0 10px 10px rgba(0,0,0,0.20);
   border-radius: 5px;
   transition: all 0.3s ease;

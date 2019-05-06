@@ -84,7 +84,6 @@ const Container = styled.div`
   top: 120px;
   left: 0px;
   margin: 0px 20%;
-  margin-bottom: 100px;
   background-color: #fff;
   display: flex;
   justify-content: center;
@@ -130,6 +129,7 @@ const Link = styled.a`
     border-bottom: 4px solid #82d8d8;
   }
 `;
+
 const Save = styled.button`
   background-color: #222;
   font-family: 'Bree Serif', serif;
