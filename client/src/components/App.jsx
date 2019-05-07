@@ -11,7 +11,32 @@ import {
 } from 'react-router-dom';
 
 export default class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      loggedIn: false,
+      welcome: '',
+    }
+    this.toggleLogin = this.toggleLogin.bind(this);
+    this.welcomeMessage = this.welcomeMessage.bind(this);
+  }
+
+  toggleLogin() {
+    this.setState({
+      loggedIn: !this.state.loggedIn,
+    });
+  }
+
+  welcomeMessage(email) {
+    this.setState({
+      welcome: `Welcome, ${email}!`
+    });
+  }
+
   render() {
+    const { loggedIn, welcome } = this.state;
+    const { toggleLogin, welcomeMessage } = this;
+
     return (
       <Router>
         <div id='main'>
@@ -19,23 +44,33 @@ export default class App extends Component {
             <Link to='/' style={{ textDecoration: 'none' }}>
               <Title1>IronBorn</Title1>
             </Link>
-            <AuthWrapper>
-              <Link to='/signup' style={{ textDecoration: 'none' }}>
-                <Auth>Sign Up</Auth>
-              </Link>
-              <Link to='/login' style={{ textDecoration: 'none' }}>
-                <Auth>Login</Auth>
-              </Link>
-            </AuthWrapper>
+            {
+              !loggedIn && 
+              <AuthWrapper>
+                <Link to='/signup' style={{ textDecoration: 'none' }}>
+                  <Auth>Sign Up</Auth>
+                </Link>
+                <Link to='/login' style={{ textDecoration: 'none' }}>
+                  <Auth>Login</Auth>
+                </Link>
+              </AuthWrapper>
+            }
+            {
+              loggedIn &&
+              <AuthWrapper>
+                <Auth>{welcome}</Auth>
+                <Auth onClick={toggleLogin}>Logout</Auth>
+              </AuthWrapper>
+            }
           </Header>
           <Background>
             <Switch>
-              <Route exact path='/' component={Menu}/>
-              <Route path='/create' component={Generate}/>
-              <Route path='/history' component={WorkoutList}/>
-              <Route path='/library' component={Library}/>
-              <Route path='/signup' component={SignUp}/>
-              <Route path='/login' component={Login}/>
+              <Route exact path='/' component={Menu} />
+              <Route path='/create' component={Generate} />
+              <Route path='/history' component={WorkoutList} />
+              <Route path='/library' component={Library} />
+              <Route path='/signup' component={SignUp} />
+              <Route path='/login' render={() => <Login toggleLogin={toggleLogin} welcomeMessage={welcomeMessage} loggedIn={loggedIn} />} />
             </Switch>
           </Background>
         </div>

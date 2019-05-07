@@ -1,17 +1,47 @@
 import React, { Component } from 'react';
 import Portal from '../utilities/Portal.jsx';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
-export default class Login extends Component {
-  constructor() {
-    super();
+class Login extends Component {
+  constructor(props) {
+    super(props);
     this.state = {
       modal: true,
       email: '',
       password: '',
     }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+  }
+
+  handleChange(e) {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value,
+    })
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const { email, password } = this.state;
+
+    fetch(`/login/${email}`)
+      .then(result => result.json())
+      .then(alert(`${email} has successfully logged in!`))
+      .then(() => {
+        this.props.history.push('/');
+        this.props.toggleLogin();
+        this.props.welcomeMessage(email);
+      })
+      .catch(() => {
+        this.setState({
+          email: '',
+          password: '',
+        })
+        alert('Incorrect login information, try again...');
+      })
   }
 
   toggleModal() {
@@ -22,7 +52,7 @@ export default class Login extends Component {
   
   render() {
     const { modal, email, password } = this.state;
-    const { toggleModal } = this;
+    const { handleChange, handleSubmit, toggleModal } = this;
 
     return (
       <Portal>
@@ -32,9 +62,9 @@ export default class Login extends Component {
               <Close onClick={toggleModal}>X</Close>
             </Link>
             <h1 style={{color: '#82d8d8'}}>Login to Your Account...</h1><br/>
-            <FlexForm>
-              <Input type='email' name='email' value={email} placeholder='Enter email address...'/><br/>
-              <Input type='password' name='password' value={password} placeholder='Enter password...'/><br/>
+            <FlexForm onSubmit={handleSubmit}>
+              <Input type='email' name='email' value={email} onChange={handleChange} placeholder='Enter email address...'/><br/>
+              <Input type='password' name='password' value={password} onChange={handleChange} placeholder='Enter password...'/><br/>
               <Button>Login</Button>
             </FlexForm>
           </Container>
@@ -46,6 +76,8 @@ export default class Login extends Component {
     )
   }
 }
+
+export default withRouter(Login);
 
 const Background = styled.div`
   position: absolute;
@@ -116,6 +148,7 @@ const Input = styled.input`
   height: 1.5em;
   font-size: 1.3em;
   border-radius: 5px;
+  text-indent: 10px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.20), 0 8px 8px rgba(0,0,0,0.20);
 `;
 

@@ -157,6 +157,7 @@ const Input = styled.input`
   height: 1.5em;
   font-size: 1.3em;
   border-radius: 5px;
+  text-indent: 10px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.20), 0 8px 8px rgba(0,0,0,0.20);
 `;
 

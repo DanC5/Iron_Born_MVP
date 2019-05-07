@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const mongoURI = process.env.DB_URI || 'mongodb://localhost/ironborn';
 mongoose.connect(mongoURI);
@@ -21,6 +23,14 @@ const userSchema = mongoose.Schema({
   password: String,
 });
 
+userSchema.pre('save', async function(next) {
+  bcrypt.hash(this.password, saltRounds)
+    .then(hash => {
+      this.password = hash;
+      next();
+    })
+});
+
 const User = mongoose.model('User', userSchema);
 
 // const getWorkouts = Workout.find().exec();
@@ -31,6 +41,14 @@ const getWorkouts = () => {
       err ? reject(err) : resolve(results);
     })
   })
+}
+
+const getUser = (email) => {
+  return new Promise((resolve, reject) => {
+    User.find({email: email}, (err, results) => {
+      err ? reject(err) : resolve(results);
+    })
+  });
 }
 
 const addWorkout = (workout) => {
@@ -68,6 +86,7 @@ const deleteWorkout = (id) => {
 module.exports = {
   db,
   getWorkouts,
+  getUser,
   addWorkout,
   addUser,
   deleteWorkout,

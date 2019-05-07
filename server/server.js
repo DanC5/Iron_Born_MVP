@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const PORT = process.env.PORT || 5555;
-const { getWorkouts, addWorkout, addUser, deleteWorkout } = require('./db');
+const { getWorkouts, getUser, addWorkout, addUser, deleteWorkout } = require('./db');
 
 const app = express();
 
@@ -14,27 +14,30 @@ app.use(express.static(`${__dirname}/../client/dist`));
 app.get('/workouts', (req, res) => {
   getWorkouts()
     .then(results => res.json(results))
-    .catch('Server-side error getting workouts from DB...')
+    .catch(console.log)
 });
+
+app.get('/login/:email', (req, res) => {
+  const { email } = req.params;
+  getUser(email)
+    .then(result => res.json(result))
+    .catch(console.log)
+})
 
 app.post('/workouts', (req, res) => {
   const workout = req.body;
   addWorkout(workout)
     .then(results => res.json(results))
-    .catch('Server-side error adding workout to DB...')
+    .catch(console.log)
 });
 
 app.post('/signup', (req, res) => {
   const user = req.body;
 
   if (user.password1 === user.password2) {
-    bcrypt.hash(user.password1, saltRounds)
-      .then(hash => {
-        user.password1 = hash
-        addUser(user)
-          .then(results => res.json(results))
-          .catch('Server-side error adding workout to DB...')
-      })
+    addUser(user)
+      .then(results => res.json(results))
+      .catch(console.log)
   } else {
     res.send('Passwords do not match');
   }
@@ -44,7 +47,7 @@ app.delete('/workouts/:id', (req, res) => {
   const { id } = req.params;
   deleteWorkout(id)
     .then(results => res.json(results))
-    .catch('Server-side error deleting workout from DB...')
+    .catch(console.log)
 });
 
 app.listen(PORT, (err) => {
