@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Portal from '../utilities/Portal.jsx';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
-export default class SignUp extends Component {
+class SignUp extends Component {
   constructor() {
     super();
     this.state = {
@@ -39,8 +39,17 @@ export default class SignUp extends Component {
 
     fetch('/signup', options)
       .then(response => response.json())
-      .then(() => console.log('Successfully added user...'))
-      .catch(() => console.log('Error adding user...'))
+      .then(() => {
+        this.props.history.push('/login');
+      })
+      .catch(() => {
+        this.setState({
+          email: '',
+          password1: '',
+          password2: '',
+        })
+        alert('Passwords do not match, try again...');
+      })
   }
 
   toggleModal() {
@@ -76,6 +85,8 @@ export default class SignUp extends Component {
     )
   }
 }
+
+export default withRouter(SignUp);
 
 const Background = styled.div`
   position: absolute;
