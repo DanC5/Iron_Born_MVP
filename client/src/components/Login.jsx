@@ -65,7 +65,7 @@ const Container = styled.div`
   position: absolute;
   top: 120px;
   left: 0px;
-  margin: 0px 20%;
+  margin: 0px 30%;
   padding-bottom: 40px;
   overflow: scroll;
   background-color: #fff;
@@ -74,7 +74,7 @@ const Container = styled.div`
   justify-content: center;
   flex-direction: column;
   font-family: 'Bree Serif', serif;
-  min-width: 60%;
+  min-width: 40%;
   min-height: 60%;
   max-height: 75%;
   box-shadow: 0 12px 24px rgba(0,0,0,0.22), 0 10px 10px rgba(0,0,0,0.20);
@@ -114,8 +114,9 @@ const FlexForm = styled.form`
 const Input = styled.input`
   font-family: 'Bree Serif', serif;
   height: 1.5em;
-  font-size: 1.5em;
-  border-radius: 5px; 
+  font-size: 1.3em;
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.20), 0 8px 8px rgba(0,0,0,0.20);
 `;
 
 const Button = styled.button`

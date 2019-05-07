@@ -13,6 +13,34 @@ export default class SignUp extends Component {
       password2: '',
     }
     this.toggleModal = this.toggleModal.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(e) {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value,
+    })
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const { email, password1, password2} = this.state;
+    const account = { email, password1, password2 }
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(account)
+    }
+
+    fetch('/signup', options)
+      .then(response => response.json())
+      .then(() => console.log('Successfully added user...'))
+      .catch(() => console.log('Error adding user...'))
   }
 
   toggleModal() {
@@ -23,7 +51,7 @@ export default class SignUp extends Component {
   
   render() {
     const { modal, email, password1, password2 } = this.state;
-    const { toggleModal } = this;
+    const { handleChange, handleSubmit, toggleModal } = this;
 
     return (
       <Portal>
@@ -33,10 +61,10 @@ export default class SignUp extends Component {
               <Close onClick={toggleModal}>X</Close>
             </Link>
             <h1 style={{color: '#82d8d8'}}>Create an Account...</h1><br/>
-            <FlexForm>
-              <Input type='email' name='email' value={email} placeholder='Enter email address...'/><br/>
-              <Input type='password1' name='password1' value={password1} placeholder='Enter password...'/><br/>
-              <Input type='password2' name='password2' value={password2} placeholder='Verify password...'/><br/>
+            <FlexForm onSubmit={handleSubmit}>
+              <Input type='email' name='email' value={email} onChange={handleChange} placeholder='Enter email address...'/><br/>
+              <Input type='password' name='password1' value={password1} onChange={handleChange} placeholder='Enter password...'/><br/>
+              <Input type='password' name='password2' value={password2} onChange={handleChange} placeholder='Verify password...'/><br/>
               <Button>Create</Button>
             </FlexForm>
           </Container>
@@ -67,7 +95,7 @@ const Container = styled.div`
   position: absolute;
   top: 120px;
   left: 0px;
-  margin: 0px 20%;
+  margin: 0px 30%;
   padding-bottom: 40px;
   overflow: scroll;
   background-color: #fff;
@@ -76,7 +104,7 @@ const Container = styled.div`
   justify-content: center;
   flex-direction: column;
   font-family: 'Bree Serif', serif;
-  min-width: 60%;
+  min-width: 40%;
   min-height: 60%;
   max-height: 75%;
   box-shadow: 0 12px 24px rgba(0,0,0,0.22), 0 10px 10px rgba(0,0,0,0.20);
@@ -116,8 +144,9 @@ const FlexForm = styled.form`
 const Input = styled.input`
   font-family: 'Bree Serif', serif;
   height: 1.5em;
-  font-size: 1.5em;
-  border-radius: 5px; 
+  font-size: 1.3em;
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.20), 0 8px 8px rgba(0,0,0,0.20);
 `;
 
 const Button = styled.button`

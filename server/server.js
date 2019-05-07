@@ -1,6 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
-const { getWorkouts, addWorkout, deleteWorkout } = require('./db');
+const { getWorkouts, addWorkout, addUser, deleteWorkout } = require('./db');
 const PORT = process.env.PORT || 5555;
 
 const app = express();
@@ -20,6 +20,17 @@ app.post('/workouts', (req, res) => {
   addWorkout(workout)
     .then(results => res.json(results))
     .catch('Server-side error adding workout to DB...')
+});
+
+app.post('/signup', (req, res) => {
+  const user = req.body;
+  if (user.password1 === user.password2) {
+    addUser(user)
+      .then(results => res.json(results))
+      .catch('Server-side error adding workout to DB...')
+  } else {
+    res.send('Passwords do not match, try again...');
+  }
 });
 
 app.delete('/workouts/:id', (req, res) => {
