@@ -78,7 +78,7 @@ const Container = styled.div`
   font-family: 'Bree Serif', serif;
   min-width: 60%;
   min-height: 60%;
-  max-height: 75%;
+  max-height: 72%;
   box-shadow: 0 12px 24px rgba(0,0,0,0.22), 0 10px 10px rgba(0,0,0,0.20);
   border-radius: 5px;
   transition: all 0.3s ease;

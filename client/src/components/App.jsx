@@ -72,6 +72,9 @@ export default class App extends Component {
               <Route path='/signup' component={SignUp} />
               <Route path='/login' render={() => <Login toggleLogin={toggleLogin} welcomeMessage={welcomeMessage} loggedIn={loggedIn} />} />
             </Switch>
+            <Footer>
+              <Copyright>Design by DanC.dev</Copyright>
+            </Footer>
           </Background>
         </div>
       </Router>
@@ -95,10 +98,33 @@ const Header = styled.div`
   z-index: 10;
 `;
 
+const Footer = styled.div`
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #222;
+  font-family: 'Bree Serif', serif;
+  z-index: 10;
+`;
+
 const Title1 = styled.h1`
   cursor: pointer;
   color: #82d8d8;
   padding-bottom: 10px;
+`;
+
+const Copyright = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding-left: 15px;
+  padding-bottom: 2px;
+  color: #82d8d8;
 `;
 
 const Background = styled.div`
