@@ -1,15 +1,16 @@
-import React, { Component } from 'react'
-import styled from 'styled-components';
+import React, { Component } from 'react';
 import Portal from '../utilities/Portal.jsx';
-import Exercises from './Exercises.jsx';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { push, pull, core, legs } from '../utilities/exercises.js';
 
-export default class Library extends Component {
+export default class SignUp extends Component {
   constructor() {
     super();
     this.state = {
       modal: true,
+      email: '',
+      password1: '',
+      password2: '',
     }
     this.toggleModal = this.toggleModal.bind(this);
   }
@@ -19,10 +20,10 @@ export default class Library extends Component {
       modal: !this.state.modal,
     })
   }
-
+  
   render() {
-    const { modal } = this.state;
-    const{ toggleModal } = this;
+    const { modal, email, password1, password2 } = this.state;
+    const { toggleModal } = this;
 
     return (
       <Portal>
@@ -31,15 +32,13 @@ export default class Library extends Component {
             <Link to='/' style={{ textDecoration: 'none' }}>
               <Close onClick={toggleModal}>X</Close>
             </Link>
-            <h1 style={{color: '#82d8d8'}}>Exercise Library</h1>
-            <h2 style={{marginTop: '-8px'}}>Upper-body Push</h2>
-            <Exercises exercises={push}/>
-            <h2>Upper-body Pull</h2>
-            <Exercises exercises={pull}/>
-            <h2>Core</h2>
-            <Exercises exercises={core}/>
-            <h2>Legs</h2>
-            <Exercises exercises={legs}/>
+            <h1 style={{color: '#82d8d8'}}>Create an Account...</h1><br/>
+            <FlexForm>
+              <Input type='email' name='email' value={email} placeholder='Enter email address...'/><br/>
+              <Input type='password1' name='password1' value={password1} placeholder='Enter password...'/><br/>
+              <Input type='password2' name='password2' value={password2} placeholder='Verify password...'/><br/>
+              <Button>Create</Button>
+            </FlexForm>
           </Container>
         }
         <Link to='/' style={{ textDecoration: 'none' }}>
@@ -74,6 +73,7 @@ const Container = styled.div`
   background-color: #fff;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
   font-family: 'Bree Serif', serif;
   min-width: 60%;
@@ -104,5 +104,38 @@ const Close = styled.button`
   &:hover {
     background-color: #f4f4f4;
     border: 1px solid #ff6961;
+  }
+`;
+
+const FlexForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const Input = styled.input`
+  font-family: 'Bree Serif', serif;
+  height: 1.5em;
+  font-size: 1.5em;
+  border-radius: 5px; 
+`;
+
+const Button = styled.button`
+  background-color: #222;
+  font-family: 'Bree Serif', serif;
+  color: #82d8d8;
+  border-radius: 28px;
+	border: none;
+	cursor: pointer;
+	font-size: 25px;
+	padding: 10px 60px;
+  margin: 30px 0px;
+	text-decoration: none;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.22), 0 10px 10px rgba(0,0,0,0.20);
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: #111;
+    font-size: 2em;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
   }
 `;
