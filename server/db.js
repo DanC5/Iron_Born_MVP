@@ -23,7 +23,7 @@ const userSchema = mongoose.Schema({
   password: String,
 });
 
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', function(next) {
   bcrypt.hash(this.password, saltRounds)
     .then(hash => {
       this.password = hash;
@@ -32,8 +32,6 @@ userSchema.pre('save', async function(next) {
 });
 
 const User = mongoose.model('User', userSchema);
-
-// const getWorkouts = Workout.find().exec();
 
 const getWorkouts = () => {
   return new Promise((resolve, reject) => {
